@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             TransactionTypeSeeder::class,
             DocumentTypeSeeder::class,
             CurrencySeeder::class,
+            IdentificationTypeSeeder::class,
         ]);
     }
 }
