@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             DocumentTypeSeeder::class,
             CurrencySeeder::class,
             IdentificationTypeSeeder::class,
+            TaxSeeder::class,
         ]);
     }
 }
