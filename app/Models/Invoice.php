@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Invoice extends Model
 {
@@ -78,6 +79,13 @@ class Invoice extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function taxes(): BelongsToMany
+    {
+        return $this->belongsToMany(Tax::class)
+            ->using(InvoiceTax::class)
+            ->withPivot(['amount']);
     }
 
     protected function reference(): Attribute
