@@ -14,13 +14,13 @@ class Identification extends Model
     ];
 
     protected $appends = [
-        'type_code',
+        'type_name',
     ];
 
-    protected function typeCode(): Attribute
+    protected function typeName(): Attribute
     {
         return Attribute::make(
-            fn () => $this->type->code,
+            fn () => $this->type->name,
         );
     }
 
