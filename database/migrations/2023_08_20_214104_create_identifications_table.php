@@ -13,7 +13,8 @@ return new class () extends Migration {
         Schema::create('identifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('type_id')->constrained('identification_types');
-            $table->char('value', 20);
+            $table->string('value', 20);
+            $table->morphs('identifiable');
             $table->timestamps();
         });
     }
