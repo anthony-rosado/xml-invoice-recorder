@@ -12,7 +12,7 @@ return new class () extends Migration {
     {
         Schema::create('identifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_id')->constrained('identification_types');
+            $table->foreignId('type_id')->constrained('identification_types')->cascadeOnUpdate();
             $table->string('value', 20);
             $table->morphs('identifiable');
             $table->timestamps();

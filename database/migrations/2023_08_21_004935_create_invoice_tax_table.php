@@ -11,8 +11,14 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('invoice_tax', function (Blueprint $table) {
-            $table->foreignId('invoice_id')->constrained();
-            $table->foreignId('tax_id')->constrained();
+            $table->foreignId('invoice_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('tax_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->decimal('amount', 8, 3)->default(0);
         });
     }
@@ -22,6 +28,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoice_taxes');
+        Schema::dropIfExists('invoice_tax');
     }
 };

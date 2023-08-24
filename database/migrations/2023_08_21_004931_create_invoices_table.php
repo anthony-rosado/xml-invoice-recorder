@@ -12,12 +12,12 @@ return new class () extends Migration {
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaction_type_id')->constrained();
-            $table->foreignId('document_type_id')->constrained();
-            $table->foreignId('currency_id')->constrained();
-            $table->foreignId('issuer_id')->constrained();
-            $table->foreignId('acquirer_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('transaction_type_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('document_type_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('currency_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('issuer_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('acquirer_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
             $table->char('series', 4);
             $table->unsignedInteger('correlative_number');
             $table->date('issue_date');

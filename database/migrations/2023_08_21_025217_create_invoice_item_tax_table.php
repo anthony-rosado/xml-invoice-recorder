@@ -11,8 +11,14 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('invoice_item_tax', function (Blueprint $table) {
-            $table->foreignId('item_id')->constrained('invoice_items');
-            $table->foreignId('tax_id')->constrained();
+            $table->foreignId('item_id')
+                ->constrained('invoice_items')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('tax_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->decimal('percentage');
             $table->decimal('amount', 8, 3)->default(0);
         });

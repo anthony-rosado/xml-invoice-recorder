@@ -12,7 +12,10 @@ return new class () extends Migration {
     {
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_id')->constrained();
+            $table->foreignId('invoice_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->string('code', 30);
             $table->string('description', 250);
             $table->unsignedDecimal('quantity', 8, 3)->default(1);
