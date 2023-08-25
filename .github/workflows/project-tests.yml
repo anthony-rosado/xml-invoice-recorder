@@ -16,13 +16,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-      - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit
+          extensions: pdo_sqlite
+      - name: Install composer dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Execute all tests
+        run: php artisan test
