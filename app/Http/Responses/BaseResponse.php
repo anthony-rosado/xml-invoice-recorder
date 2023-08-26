@@ -6,5 +6,4 @@ use Illuminate\Contracts\Support\Responsable;
 
 abstract class BaseResponse implements Responsable
 {
-
 }
