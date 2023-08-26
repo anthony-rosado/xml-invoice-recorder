@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Enums;
 
-use App\Exceptions\Contracts\UnexpectedTransactionTypeCodeValue;
+use App\Exceptions\Enums\UnexpectedTransactionTypeCodeValue;
 
 enum TransactionTypeCode: string
 {

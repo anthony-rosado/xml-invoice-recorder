@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Enums;
 
-use App\Exceptions\Contracts\UnexpectedDocumentTypeCodeValue;
+use App\Exceptions\Enums\UnexpectedDocumentTypeCodeValue;
 
 enum DocumentTypeCode: string
 {

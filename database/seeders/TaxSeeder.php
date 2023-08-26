@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Contracts\TaxCode;
+use App\Enums\TaxCode;
 use App\Models\Tax;
 use Illuminate\Database\Seeder;
 

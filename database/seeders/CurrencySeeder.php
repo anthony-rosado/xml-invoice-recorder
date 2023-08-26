@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Contracts\CurrencyCode;
+use App\Enums\CurrencyCode;
 use App\Models\Currency;
 use Illuminate\Database\Seeder;
 

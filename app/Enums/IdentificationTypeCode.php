@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Enums;
 
-use App\Exceptions\Contracts\UnexpectedIdentificationTypeCodeValue;
+use App\Exceptions\Enums\UnexpectedIdentificationTypeCodeValue;
 
 enum IdentificationTypeCode: string
 {

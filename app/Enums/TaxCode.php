@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Enums;
 
-use App\Exceptions\Contracts\UnexpectedTaxCodeValue;
+use App\Exceptions\Enums\UnexpectedTaxCodeValue;
 
 enum TaxCode: string
 {

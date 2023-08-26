@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Enums;
 
-use App\Exceptions\Contracts\UnexpectedCurrencyCodeValue;
+use App\Exceptions\Enums\UnexpectedCurrencyCodeValue;
 
 enum CurrencyCode: string
 {
