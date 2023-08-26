@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Contracts\DocumentTypeCode;
+use App\Enums\DocumentTypeCode;
 use App\Models\DocumentType;
 use Illuminate\Database\Seeder;
 

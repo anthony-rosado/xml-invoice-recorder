@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Contracts\IdentificationTypeCode;
+use App\Enums\IdentificationTypeCode;
 use App\Models\IdentificationType;
 use Illuminate\Database\Seeder;
 

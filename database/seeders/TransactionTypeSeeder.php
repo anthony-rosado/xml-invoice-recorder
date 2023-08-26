@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Contracts\TransactionTypeCode;
+use App\Enums\TransactionTypeCode;
 use App\Models\TransactionType;
 use Illuminate\Database\Seeder;
 

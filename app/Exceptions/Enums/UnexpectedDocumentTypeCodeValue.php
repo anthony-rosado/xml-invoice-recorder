@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions\Contracts;
+namespace App\Exceptions\Enums;
 
 use Exception;
 
