@@ -2,32 +2,33 @@
 
 namespace App\Enums;
 
+use App\Contracts\Enums\IdentificationTypeCode as IdentificationTypeCodeContract;
 use App\Exceptions\Enums\UnexpectedIdentificationTypeCodeValue;
 
-enum IdentificationTypeCode: string
+enum IdentificationTypeCode: string implements IdentificationTypeCodeContract
 {
-    case NoDocument = '0';
-    case Dni = '1';
-    case ForeignerCard = '4';
-    case Ruc = '6';
-    case Passport = '7';
+    case NoDocument = self::NO_DOCUMENT;
+    case Dni = self::DNI;
+    case ForeignerCard = self::FOREIGNER_CARD;
+    case Ruc = self::RUC;
+    case Passport = self::PASSPORT;
 
     /**
      * @throws UnexpectedIdentificationTypeCodeValue
      */
-    public static function fromCode(string $code): self
+    public static function fromString(string $code): self
     {
         return match ($code) {
-            '0' => self::NoDocument,
-            '1' => self::Dni,
-            '4' => self::ForeignerCard,
-            '6' => self::Ruc,
-            '7' => self::Passport,
+            self::NO_DOCUMENT => self::NoDocument,
+            self::DNI => self::Dni,
+            self::FOREIGNER_CARD => self::ForeignerCard,
+            self::RUC => self::Ruc,
+            self::PASSPORT => self::Passport,
             default => throw new UnexpectedIdentificationTypeCodeValue(),
         };
     }
 
-    public function codeName(): string
+    public function label(): string
     {
         return match ($this) {
             self::NoDocument => 'no_document',

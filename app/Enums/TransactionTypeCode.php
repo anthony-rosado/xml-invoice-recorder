@@ -2,40 +2,41 @@
 
 namespace App\Enums;
 
+use App\Contracts\Enums\TransactionTypeCode as TransactionTypeCodeContract;
 use App\Exceptions\Enums\UnexpectedTransactionTypeCodeValue;
 
-enum TransactionTypeCode: string
+enum TransactionTypeCode: string implements TransactionTypeCodeContract
 {
-    case InternalSales = '0101';
-    case Exportation = '0102';
-    case NotDomiciled = '0103';
-    case InternalSalesAdvances = '0104';
-    case ItinerantSale = '0105';
-    case InvoiceGuide = '0106';
-    case RiceSale = '0107';
-    case PerceptionReceiptInvoice = '0108';
-    case InvoiceShipperGuide = '0110';
+    case InternalSales = self::INTERNAL_SALES;
+    case Exportation = self::EXPORTATION;
+    case NotDomiciled = self::NOT_DOMICILED;
+    case InternalSalesAdvances = self::INTERNAL_SALES_ADVANCES;
+    case ItinerantSale = self::ITINERANT_SALE;
+    case InvoiceGuide = self::INVOICE_GUIDE;
+    case RiceSale = self::RICE_SALE;
+    case PerceptionReceiptInvoice = self::PERCEPTION_RECEIPT_INVOICE;
+    case InvoiceShipperGuide = self::INVOICE_SHIPPER_GUIDE;
 
     /**
      * @throws UnexpectedTransactionTypeCodeValue
      */
-    public static function fromCode(string $code): self
+    public static function fromString(string $code): self
     {
         return match ($code) {
-            '0101' => self::InternalSales,
-            '0102' => self::Exportation,
-            '0103' => self::NotDomiciled,
-            '0104' => self::InternalSalesAdvances,
-            '0105' => self::ItinerantSale,
-            '0106' => self::InvoiceGuide,
-            '0107' => self::RiceSale,
-            '0108' => self::PerceptionReceiptInvoice,
-            '0110' => self::InvoiceShipperGuide,
+            self::INTERNAL_SALES => self::InternalSales,
+            self::EXPORTATION => self::Exportation,
+            self::NOT_DOMICILED => self::NotDomiciled,
+            self::INTERNAL_SALES_ADVANCES => self::InternalSalesAdvances,
+            self::ITINERANT_SALE => self::ItinerantSale,
+            self::INVOICE_GUIDE => self::InvoiceGuide,
+            self::RICE_SALE => self::RiceSale,
+            self::PERCEPTION_RECEIPT_INVOICE => self::PerceptionReceiptInvoice,
+            self::INVOICE_SHIPPER_GUIDE => self::InvoiceShipperGuide,
             default => throw new UnexpectedTransactionTypeCodeValue(),
         };
     }
 
-    public function codeName(): string
+    public function label(): string
     {
         return match ($this) {
             self::InternalSales => 'internal_sales',

@@ -2,28 +2,29 @@
 
 namespace App\Enums;
 
+use App\Contracts\Enums\CurrencyCode as CurrencyCodeContract;
 use App\Exceptions\Enums\UnexpectedCurrencyCodeValue;
 
-enum CurrencyCode: string
+enum CurrencyCode: string implements CurrencyCodeContract
 {
-    case Pen = 'PEN';
-    case Usd = 'USD';
-    case Eur = 'EUR';
+    case Pen = self::PEN;
+    case Usd = self::USD;
+    case Eur = self::EUR;
 
     /**
      * @throws UnexpectedCurrencyCodeValue
      */
-    public static function fromCode(string $code): self
+    public static function fromString(string $code): self
     {
         return match ($code) {
-            'PEN' => self::Pen,
-            'USD' => self::Usd,
-            'EUR' => self::Eur,
+            self::PEN => self::Pen,
+            self::USD => self::Usd,
+            self::EUR => self::Eur,
             default => throw new UnexpectedCurrencyCodeValue(),
         };
     }
 
-    public function codeName(): string
+    public function label(): string
     {
         return match ($this) {
             self::Pen => 'peruvian_sol',

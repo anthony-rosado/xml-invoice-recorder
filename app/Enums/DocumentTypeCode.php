@@ -2,24 +2,25 @@
 
 namespace App\Enums;
 
+use App\Contracts\Enums\DocumentTypeCode as DocumentTypeCodeContract;
 use App\Exceptions\Enums\UnexpectedDocumentTypeCodeValue;
 
-enum DocumentTypeCode: string
+enum DocumentTypeCode: string implements DocumentTypeCodeContract
 {
-    case Bill = '01';
+    case Bill = self::BILL;
 
     /**
      * @throws UnexpectedDocumentTypeCodeValue
      */
-    public static function fromCode(string $code): self
+    public static function fromString(string $code): self
     {
         return match ($code) {
-            '01' => self::Bill,
+            self::BILL => self::Bill,
             default => throw new UnexpectedDocumentTypeCodeValue(),
         };
     }
 
-    public function codeName(): string
+    public function label(): string
     {
         return match ($this) {
             self::Bill => 'bill',

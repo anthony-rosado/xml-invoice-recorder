@@ -2,34 +2,35 @@
 
 namespace App\Enums;
 
+use App\Contracts\Enums\TaxCode as TaxCodeContract;
 use App\Exceptions\Enums\UnexpectedTaxCodeValue;
 
-enum TaxCode: string
+enum TaxCode: string implements TaxCodeContract
 {
-    case Igv = '1000';
-    case Isc = '2000';
-    case Free = '9996';
-    case Exonerated = '9997';
-    case Unaffected = '9998';
-    case Other = '9999';
+    case Igv = self::IGV;
+    case Isc = self::ISC;
+    case Free = self::FREE;
+    case Exonerated = self::EXONERATED;
+    case Unaffected = self::UNAFFECTED;
+    case Other = self::OTHER;
 
     /**
      * @throws UnexpectedTaxCodeValue
      */
-    public static function fromCode(string $code): self
+    public static function fromString(string $code): self
     {
         return match ($code) {
-            '1000' => self::Igv,
-            '2000' => self::Isc,
-            '9996' => self::Free,
-            '9997' => self::Exonerated,
-            '9998' => self::Unaffected,
-            '9999' => self::Other,
+            self::IGV => self::Igv,
+            self::ISC => self::Isc,
+            self::FREE => self::Free,
+            self::EXONERATED => self::Exonerated,
+            self::UNAFFECTED => self::Unaffected,
+            self::OTHER => self::Other,
             default => throw new UnexpectedTaxCodeValue(),
         };
     }
 
-    public function codeName(): string
+    public function label(): string
     {
         return match ($this) {
             self::Igv => 'igv',
