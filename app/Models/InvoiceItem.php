@@ -2,10 +2,33 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\InvoiceItem
+ *
+ * @property int $id
+ * @property int $invoice_id
+ * @property string $code
+ * @property string $description
+ * @property string $quantity
+ * @property string $unit_value
+ * @property string $unit_price
+ * @property string $base_amount
+ * @property string $tax_amount
+ * @property string $discount_amount
+ * @property string $other_charges_amount
+ * @property string $total_amount
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Invoice $invoice
+ * @property-read Collection<int, Tax> $taxes
+ * @property-read int|null $taxes_count
+ */
 class InvoiceItem extends Model
 {
     protected $fillable = [

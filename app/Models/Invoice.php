@@ -3,11 +3,49 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Invoice
+ *
+ * @property int $id
+ * @property int $transaction_type_id
+ * @property int $document_type_id
+ * @property int $currency_id
+ * @property int $issuer_id
+ * @property int $acquirer_id
+ * @property int $user_id
+ * @property string $series
+ * @property int $correlative_number
+ * @property string $issue_date
+ * @property string $issue_time
+ * @property string $due_date
+ * @property string|null $observation
+ * @property string $base_amount
+ * @property string $tax_amount
+ * @property string $base_tax_amount
+ * @property string $discount_amount
+ * @property string $other_charges_amount
+ * @property string $global_discount_amount
+ * @property string $total_amount
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Acquirer $acquirer
+ * @property-read Currency $currency
+ * @property-read DocumentType $documentType
+ * @property-read Issuer $issuer
+ * @property-read Collection<int, InvoiceItem> $items
+ * @property-read int|null $items_count
+ * @property-read Collection<int, Tax> $taxes
+ * @property-read int|null $taxes_count
+ * @property-read TransactionType $transactionType
+ * @property-read User $user
+ */
 class Invoice extends Model
 {
     protected $fillable = [
