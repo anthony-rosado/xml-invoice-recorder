@@ -52,6 +52,6 @@ class InvoiceItem extends Model
     {
         return $this->belongsToMany(Tax::class, 'invoice_item_tax', 'item_id')
             ->using(InvoiceItemTax::class)
-            ->withPivot(['percentage', 'amount']);
+            ->withPivot(['amount']);
     }
 }

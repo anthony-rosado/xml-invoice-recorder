@@ -19,7 +19,6 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->decimal('percentage');
             $table->decimal('amount', 8, 3)->default(0);
         });
     }
