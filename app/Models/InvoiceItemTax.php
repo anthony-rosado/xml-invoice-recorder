@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class InvoiceItemTax extends Pivot
 {
+    public $timestamps = false;
+
     protected $attributes = [
         'amount' => 0,
     ];
