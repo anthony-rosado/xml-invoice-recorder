@@ -5,6 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * App\Models\InvoiceItemTax
+ *
+ * @property int $item_id
+ * @property int $tax_id
+ * @property string $amount
+ * @property-read InvoiceItem $item
+ * @property-read Tax $tax
+ */
 class InvoiceItemTax extends Pivot
 {
     public $timestamps = false;
