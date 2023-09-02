@@ -3,6 +3,7 @@
 namespace App\Handlers\Invoices;
 
 use App\Exceptions\Handlers\Invoices\CouldNotRecordInvoice;
+use App\Exceptions\Handlers\Invoices\InvoiceAlreadyRecorded;
 use App\Exceptions\Helpers\CouldNotTransformInvoiceXmlToArrayException;
 use App\Helpers\InvoiceXmlToArray;
 use App\Mappers\InvoiceDataMapper;
@@ -33,11 +34,24 @@ readonly class RecordInvoice
     /**
      * @throws CouldNotRecordInvoice
      * @throws CouldNotTransformInvoiceXmlToArrayException
+     * @throws InvoiceAlreadyRecorded
      */
     public function handle(string $content, User $user): Invoice
     {
         $data = (new InvoiceXmlToArray($content))->transform();
         $mapper = new InvoiceDataMapper($data);
+
+        $invoiceExists = $this->invoiceService->checkByReferenceIfExists(
+            $mapper->getAttributes()['series'],
+            $mapper->getAttributes()['correlative_number']
+        );
+
+        if ($invoiceExists) {
+            throw new InvoiceAlreadyRecorded(
+                $mapper->getAttributes()['series'],
+                $mapper->getAttributes()['correlative_number']
+            );
+        }
 
         try {
             DB::beginTransaction();

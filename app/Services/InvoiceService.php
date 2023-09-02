@@ -20,6 +20,14 @@ class InvoiceService
         $this->invoice = $invoice;
     }
 
+    public static function checkByReferenceIfExists(string $series, int $correlativeNumber): bool
+    {
+        return Invoice::query()
+            ->where('series', '=', $series)
+            ->where('correlative_number', '=', $correlativeNumber)
+            ->exists();
+    }
+
     public function getInvoice(): Invoice
     {
         return $this->invoice;
