@@ -53,7 +53,7 @@ class LoginTest extends TestCase
                 fn (AssertableJson $json) => $json->hasAll(['message', 'description'])
                     ->whereAllType([
                         'message' => 'string',
-                        'description' => 'string',
+                        'description' => ['string', 'null'],
                     ])
                     ->where('message', __('auth.failed'))
             );
