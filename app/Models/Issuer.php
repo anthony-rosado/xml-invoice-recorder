@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
@@ -19,6 +19,8 @@ use Illuminate\Support\Carbon;
  */
 class Issuer extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'company_name',
         'trade_name',
@@ -29,19 +31,19 @@ class Issuer extends Model
         'identification_value',
     ];
 
-    protected function identificationTypeName(): Attribute
-    {
-        return Attribute::make(
-            fn () => $this->identification->type_name,
-        );
-    }
-
-    protected function identificationValue(): Attribute
-    {
-        return Attribute::make(
-            fn () => $this->identification->value,
-        );
-    }
+//    protected function identificationTypeName(): Attribute
+//    {
+//        return Attribute::make(
+//            fn () => $this->identification->type_name,
+//        );
+//    }
+//
+//    protected function identificationValue(): Attribute
+//    {
+//        return Attribute::make(
+//            fn () => $this->identification->value,
+//        );
+//    }
 
     public function identification(): MorphOne
     {
