@@ -6,6 +6,7 @@ use App\Models\Acquirer;
 use App\Models\Currency;
 use App\Models\DocumentType;
 use App\Models\Invoice;
+use App\Models\InvoiceTax;
 use App\Models\Issuer;
 use App\Models\TransactionType;
 use App\Models\User;
@@ -60,8 +61,11 @@ class InvoiceService
         foreach ($taxes as $tax) {
             $taxModel = TaxService::findByCode($tax['code']);
 
-            $invoiceTaxService = new InvoiceTaxService();
-            $invoiceTaxService->create(['amount' => $tax['amount']], $this->getInvoice(), $taxModel);
+            /** @var InvoiceTax $invoiceTax */
+            $invoiceTax = InvoiceTax::query()->make(['amount' => $tax['amount']]);
+            $invoiceTax->invoice()->associate($this->getInvoice());
+            $invoiceTax->tax()->associate($taxModel);
+            $invoiceTax->save();
         }
     }
 
