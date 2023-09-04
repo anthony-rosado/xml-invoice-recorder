@@ -72,14 +72,6 @@ readonly class InvoiceDataMapper
     /**
      * @throws UnableToGetElementFromData
      */
-    public function getUser(): array
-    {
-        return $this->get('user');
-    }
-
-    /**
-     * @throws UnableToGetElementFromData
-     */
     public function getTaxes(): array
     {
         return $this->get('taxes');
