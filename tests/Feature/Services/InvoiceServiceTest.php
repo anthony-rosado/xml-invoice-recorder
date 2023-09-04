@@ -21,6 +21,28 @@ class InvoiceServiceTest extends TestCase
 {
     use WithFaker;
 
+    public function testCheckInvoiceByReferenceIfExists(): void
+    {
+        $transactionType = TransactionType::query()->inRandomOrder()->first();
+        $documentType = DocumentType::query()->inRandomOrder()->first();
+        $currency = Currency::query()->inRandomOrder()->first();
+        $issuer = Issuer::factory()->createOne();
+        $acquirer = Acquirer::factory()->createOne();
+        $user = User::factory()->createOne();
+        $invoice = Invoice::factory()
+            ->for($transactionType)
+            ->for($documentType)
+            ->for($currency)
+            ->for($issuer)
+            ->for($acquirer)
+            ->for($user)
+            ->createOne();
+
+        $service = app(InvoiceService::class);
+
+        $this->assertTrue($service->checkByReferenceIfExists($invoice->series, $invoice->correlative_number));
+    }
+
     public function testCreateInvoice(): void
     {
         $invoice = Invoice::factory()->makeOne();
