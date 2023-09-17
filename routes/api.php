@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Invoices\GetInvoiceListController;
 use App\Http\Controllers\Invoices\UploadInvoiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,6 @@ Route::prefix('auth')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::prefix('invoices')->group(function () {
         Route::post('/upload', UploadInvoiceController::class);
+        Route::get('/', GetInvoiceListController::class);
     });
 });
