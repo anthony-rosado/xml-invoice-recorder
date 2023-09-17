@@ -20,7 +20,7 @@ class UploadInvoiceController extends Controller
     public function __invoke(UploadInvoiceRequest $request): InvoiceSmallResource|ErrorResponse
     {
         try {
-            $invoice = $this->recordInvoice->handle($request->file('file')->getContent(), Auth::user());
+            $invoice = $this->recordInvoice->perform($request->file('file')->getContent(), Auth::user());
         } catch (Exception $exception) {
             return ErrorResponse::fromException($exception);
         }

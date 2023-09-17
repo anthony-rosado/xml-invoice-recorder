@@ -36,7 +36,7 @@ readonly class RecordInvoice
      * @throws CouldNotTransformInvoiceXmlToArrayException
      * @throws InvoiceAlreadyRecorded
      */
-    public function handle(string $content, User $user): Invoice
+    public function perform(string $content, User $user): Invoice
     {
         $data = (new InvoiceXmlToArray($content))->transform();
         $mapper = new InvoiceDataMapper($data);
