@@ -7,6 +7,7 @@ An API to manage information of XML invoices
 The following options are available:
 
 - User authentication
+- Upload invoice XML file
 
 ## Installation
 
