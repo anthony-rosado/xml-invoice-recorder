@@ -72,8 +72,8 @@ class InvoiceItemServiceTest extends TestCase
             ->createOne();
 
         $itemTaxes = [
-            ['code' => TaxCode::Igv->value, 'amount' => $this->faker->randomFloat()],
-            ['code' => TaxCode::Isc->value, 'amount' => $this->faker->randomFloat()],
+            ['code' => TaxCode::Igv->value, 'amount' => $this->faker->randomFloat(3, 0, 99999)],
+            ['code' => TaxCode::Isc->value, 'amount' => $this->faker->randomFloat(3, 0, 99999)],
         ];
 
         $taxes = Tax::query()->whereIn('code', Arr::pluck($itemTaxes, 'code'))->get();
