@@ -38,16 +38,14 @@ class InvoiceXmlToArray
 
     private function setInformation(array $content): void
     {
-        $observation = null;
-
-        if (is_array($content['cbc:Note'])) {
+        if (Arr::isAssoc($content['cbc:Note'])) {
+            $observation = $content['cbc:Note']['@content'];
+        } else {
             $observation = collect($content['cbc:Note'])
                 ->map(function ($note) {
                     return is_array($note) ? $note['@content'] : $note;
                 })
                 ->join(PHP_EOL);
-        } elseif (is_string($content['cbc:Note'])) {
-            $observation = $content['cbc:Note'];
         }
 
         $this->data = [
@@ -126,14 +124,6 @@ class InvoiceXmlToArray
                 'total_amount' => $totalAmount,
                 'taxes' => [],
             ];
-
-            if (isset($item['cac:AllowanceCharge'])) {
-                if ($item['cac:AllowanceCharge']['cbc:ChargeIndicator']) {
-                    $itemData['other_charges_amount'] = $item['cac:AllowanceCharge']['cbc:Amount']['@content'];
-                } else {
-                    $itemData['discount_amount'] = $item['cac:AllowanceCharge']['cbc:Amount']['@content'];
-                }
-            }
 
             $taxes = $item['cac:TaxTotal']['cac:TaxSubtotal'];
             $taxes = Arr::isAssoc($taxes) ? [$taxes] : $taxes;
