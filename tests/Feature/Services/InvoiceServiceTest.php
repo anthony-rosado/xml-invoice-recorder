@@ -84,8 +84,8 @@ class InvoiceServiceTest extends TestCase
             ->for($user)
             ->createOne();
         $invoiceTaxes = [
-            ['code' => TaxCode::Igv->value, 'amount' => $this->faker->randomFloat()],
-            ['code' => TaxCode::Isc->value, 'amount' => $this->faker->randomFloat()],
+            ['code' => TaxCode::Igv->value, 'amount' => $this->faker->randomFloat(3, 0, 99999)],
+            ['code' => TaxCode::Isc->value, 'amount' => $this->faker->randomFloat(3, 0, 99999)],
         ];
 
         $taxes = Tax::query()->whereIn('code', Arr::pluck($invoiceTaxes, 'code'))->get();
@@ -123,8 +123,8 @@ class InvoiceServiceTest extends TestCase
             ->createOne();
         $items = InvoiceItem::factory()->count(5)->make();
         $itemTaxes = [
-            ['code' => TaxCode::Igv->value, 'amount' => $this->faker->randomFloat()],
-            ['code' => TaxCode::Isc->value, 'amount' => $this->faker->randomFloat()],
+            ['code' => TaxCode::Igv->value, 'amount' => $this->faker->randomFloat(3, 0, 99999)],
+            ['code' => TaxCode::Isc->value, 'amount' => $this->faker->randomFloat(3, 0, 99999)],
         ];
         foreach ($items as $item) {
             $item->taxes = $itemTaxes;
