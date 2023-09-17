@@ -10,6 +10,7 @@ use App\Models\InvoiceTax;
 use App\Models\Issuer;
 use App\Models\TransactionType;
 use App\Models\User;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 
 class InvoiceService
@@ -93,5 +94,12 @@ class InvoiceService
             );
             $invoiceItemService->addTaxes($item['taxes']);
         }
+    }
+
+    public function getList(int $perPage = 15): LengthAwarePaginator
+    {
+        return Invoice::query()
+            ->withCount(['items'])
+            ->paginate($perPage);
     }
 }
