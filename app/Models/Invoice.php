@@ -36,6 +36,8 @@ use Illuminate\Support\Carbon;
  * @property string $total_amount
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read string $reference
+ * @property-read string $issue_at
  * @property-read Acquirer $acquirer
  * @property-read Currency $currency
  * @property-read DocumentType $documentType

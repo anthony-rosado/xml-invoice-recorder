@@ -3,7 +3,9 @@
 namespace Tests\Feature\Http\Controllers\Invoices;
 
 use App\Models\User;
+use App\Notifications\Invoices\InvoiceSummary;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Laravel\Passport\Passport;
@@ -13,10 +15,12 @@ class UploadInvoiceControllerTest extends TestCase
 {
     public function testUploadAnInvoice(): void
     {
+        $user = User::factory()->createOne();
         $invoice = Storage::get('/invoices/F003-1.xml');
         $invoiceFile = UploadedFile::fake()->createWithContent('F003-1.xml', $invoice);
 
-        Passport::actingAs(User::factory()->createOne());
+        Notification::fake();
+        Passport::actingAs($user);
 
         $this->assertAuthenticated();
 
@@ -25,6 +29,9 @@ class UploadInvoiceControllerTest extends TestCase
             ['file' => $invoiceFile],
             ['Accept' => 'application/json']
         );
+
+        Notification::assertSentTo($user, InvoiceSummary::class);
+        Notification::assertCount(1);
 
         $response->assertCreated();
         $response->assertJson(
@@ -60,10 +67,12 @@ class UploadInvoiceControllerTest extends TestCase
 
     public function testUnableToUploadAnInvoice()
     {
+        $user = User::factory()->createOne();
         $invoice = Storage::get('/invoices/MISSING-ID.xml');
         $invoiceFile = UploadedFile::fake()->createWithContent('F003-1.xml', $invoice);
 
-        Passport::actingAs(User::factory()->createOne());
+        Notification::fake();
+        Passport::actingAs($user);
 
         $this->assertAuthenticated();
 
@@ -72,6 +81,8 @@ class UploadInvoiceControllerTest extends TestCase
             ['file' => $invoiceFile],
             ['Accept' => 'application/json']
         );
+
+        Notification::assertNothingSent();
 
         $response->assertBadRequest()
             ->assertJson(
@@ -89,11 +100,15 @@ class UploadInvoiceControllerTest extends TestCase
         $invoice = Storage::get('/invoices/MISSING-ID.xml');
         $invoiceFile = UploadedFile::fake()->createWithContent('F003-1.xml', $invoice);
 
+        Notification::fake();
+
         $response = $this->post(
             '/api/invoices/upload',
             ['file' => $invoiceFile],
             ['Accept' => 'application/json']
         );
+
+        Notification::assertNothingSent();
 
         self::assertNotTrue($this->isAuthenticated());
 
