@@ -9,6 +9,7 @@ The following options are available:
 - User authentication
 - Upload invoice XML file
 - Invoice summary notification
+- Invoice list with pagination
 
 ## Installation
 
