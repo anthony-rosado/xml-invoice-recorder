@@ -158,4 +158,47 @@ class InvoiceServiceTest extends TestCase
             }
         }
     }
+
+    public function testDeleteInvoice()
+    {
+        $transactionType = TransactionType::query()
+            ->inRandomOrder()
+            ->first();
+        $documentType = DocumentType::query()
+            ->inRandomOrder()
+            ->first();
+        $currency = Currency::query()
+            ->inRandomOrder()
+            ->first();
+        $issuer = Issuer::factory()->createOne();
+        $acquirer = Acquirer::factory()->createOne();
+        $user = User::factory()->createOne();
+        $items = InvoiceItem::factory()->count(3);
+        $invoice = Invoice::factory()
+            ->for($transactionType)
+            ->for($documentType)
+            ->for($currency)
+            ->for($issuer)
+            ->for($acquirer)
+            ->for($user)
+            ->has($items, 'items')
+            ->createOne();
+
+        $invoiceItems = $invoice->items()->get();
+
+        $service = app(InvoiceService::class);
+        $service->setInvoice($invoice);
+        $service->delete();
+
+        $this->assertDatabaseMissing('invoices', ['id' => $invoice->getKey()]);
+        $this->assertDatabaseMissing('invoice_tax', ['invoice_id' => $invoice->getKey()]);
+
+        foreach ($invoiceItems as $item) {
+            $this->assertDatabaseMissing(
+                'invoice_items',
+                ['code' => $item->code, 'invoice_id' => $invoice->getKey()]
+            );
+            $this->assertDatabaseMissing('invoice_item_tax', ['item_id' => $item->getKey()]);
+        }
+    }
 }
