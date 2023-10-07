@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature\Auth;
+namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Models\User;
 use Database\Factories\UserFactory;
@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class LoginTest extends TestCase
+class LoginControllerTest extends TestCase
 {
     public function testThatAUserCanAuthenticate(): void
     {
