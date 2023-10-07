@@ -6,6 +6,7 @@ use App\Models\Acquirer;
 use App\Models\Currency;
 use App\Models\DocumentType;
 use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use App\Models\InvoiceTax;
 use App\Models\Issuer;
 use App\Models\TransactionType;
@@ -101,5 +102,19 @@ class InvoiceService
         return Invoice::query()
             ->withCount(['items'])
             ->paginate($perPage);
+    }
+
+    public function delete(): void
+    {
+        $invoiceItems = $this->getInvoice()->items()->get();
+
+        $invoiceItems->each(function (InvoiceItem $invoiceItem) {
+            $invoiceItemService = new InvoiceItemService();
+            $invoiceItemService->setInvoiceItem($invoiceItem);
+            $invoiceItemService->delete();
+        });
+
+        $this->getInvoice()->taxes()->delete();
+        $this->getInvoice()->delete();
     }
 }
