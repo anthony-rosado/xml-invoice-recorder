@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,17 +28,6 @@ class Identification extends Model
     protected $fillable = [
         'value',
     ];
-
-    protected $appends = [
-        'type_name',
-    ];
-
-    protected function typeName(): Attribute
-    {
-        return Attribute::make(
-            fn () => $this->type->name,
-        );
-    }
 
     public function type(): BelongsTo
     {

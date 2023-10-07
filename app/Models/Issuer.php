@@ -26,25 +26,6 @@ class Issuer extends Model
         'trade_name',
     ];
 
-    protected $appends = [
-        'identification_type_name',
-        'identification_value',
-    ];
-
-//    protected function identificationTypeName(): Attribute
-//    {
-//        return Attribute::make(
-//            fn () => $this->identification->type_name,
-//        );
-//    }
-//
-//    protected function identificationValue(): Attribute
-//    {
-//        return Attribute::make(
-//            fn () => $this->identification->value,
-//        );
-//    }
-
     public function identification(): MorphOne
     {
         return $this->morphOne(Identification::class, 'identifiable');
