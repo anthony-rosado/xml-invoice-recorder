@@ -42,4 +42,10 @@ class InvoiceItemService
             $invoiceTax->save();
         }
     }
+
+    public function delete(): void
+    {
+        $this->getInvoiceItem()->taxes()->delete();
+        $this->getInvoiceItem()->delete();
+    }
 }
