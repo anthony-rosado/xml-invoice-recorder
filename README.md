@@ -10,6 +10,7 @@ The following options are available:
 - Upload invoice XML file
 - Invoice summary notification
 - Invoice list with pagination
+- Delete invoices
 
 ## Installation
 
