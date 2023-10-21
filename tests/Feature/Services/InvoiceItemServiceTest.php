@@ -93,6 +93,11 @@ class InvoiceItemServiceTest extends TestCase
         }
     }
 
+    public function tstTotalAccumulatedAmountPerItem()
+    {
+
+    }
+
     public function testDeleteInvoiceItem()
     {
         $transactionType = TransactionType::query()

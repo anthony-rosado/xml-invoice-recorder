@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvoiceItems\GetTotalAccumulatedAmountPerItemController;
 use App\Http\Controllers\Invoices\DeleteInvoiceController;
 use App\Http\Controllers\Invoices\GetInvoiceListController;
 use App\Http\Controllers\Invoices\UploadInvoiceController;
@@ -26,5 +27,9 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/upload', UploadInvoiceController::class);
         Route::get('/', GetInvoiceListController::class);
         Route::delete('/{invoice}', DeleteInvoiceController::class);
+    });
+
+    Route::prefix('invoice-items')->group(function () {
+        Route::get('/total-accumulated-amount-per-item', GetTotalAccumulatedAmountPerItemController::class);
     });
 });
