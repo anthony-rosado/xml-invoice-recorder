@@ -2,9 +2,13 @@
 
 namespace App\Services;
 
+use App\DataTransferObjects\InvoiceItems\ItemTotalAmount;
+use App\DataTransferObjects\InvoiceItems\TotalAccumulatedPerItem;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\InvoiceItemTax;
+use App\Repositories\InvoiceItemRepository;
+use Illuminate\Support\Collection;
 
 class InvoiceItemService
 {
@@ -41,6 +45,30 @@ class InvoiceItemService
             $invoiceTax->tax()->associate($taxModel);
             $invoiceTax->save();
         }
+    }
+
+    public function getTotalAccumulatedAmountPerItem()
+    {
+        $repository = new InvoiceItemRepository();
+        $records = $repository->fetchTotalAccumulatedAmountPerItem();
+
+        return $records->groupBy('code')
+            ->map(function (Collection $records) {
+                $amounts = $records
+                    ->map(function ($record) {
+                        return new ItemTotalAmount(
+                            $record->currency_code,
+                            $record->total_amount
+                        );
+                    })
+                    ->toArray();
+
+                return new TotalAccumulatedPerItem(
+                    $records->first()->code,
+                    $amounts
+                );
+            })
+            ->values();
     }
 
     public function delete(): void
