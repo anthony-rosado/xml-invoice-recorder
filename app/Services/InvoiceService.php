@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DataTransferObjects\Invoices\InvoiceTotalAmount;
 use App\Models\Acquirer;
 use App\Models\Currency;
 use App\Models\DocumentType;
@@ -11,8 +12,10 @@ use App\Models\InvoiceTax;
 use App\Models\Issuer;
 use App\Models\TransactionType;
 use App\Models\User;
+use App\Repositories\InvoiceRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class InvoiceService
 {
@@ -102,6 +105,18 @@ class InvoiceService
         return Invoice::query()
             ->withCount(['items'])
             ->paginate($perPage);
+    }
+
+    public function getTotalAccumulatedPerCurrency(): Collection
+    {
+        $repository = new InvoiceRepository();
+
+        $records = $repository->fetchTotalAccumulatedPerCurrency();
+
+        return $records->map(fn ($record) => new InvoiceTotalAmount(
+            $record->currency_code,
+            $record->total_amount
+        ));
     }
 
     public function delete(): void
