@@ -3,7 +3,7 @@
 namespace Tests\Unit\DataTransferObjects\InvoiceItems;
 
 use App\DataTransferObjects\InvoiceItems\ItemTotalAmount;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ItemTotalAmountTest extends TestCase
 {

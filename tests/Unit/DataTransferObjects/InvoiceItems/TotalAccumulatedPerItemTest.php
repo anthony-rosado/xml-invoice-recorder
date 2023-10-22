@@ -4,7 +4,7 @@ namespace Tests\Unit\DataTransferObjects\InvoiceItems;
 
 use App\DataTransferObjects\InvoiceItems\ItemTotalAmount;
 use App\DataTransferObjects\InvoiceItems\TotalAccumulatedPerItem;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TotalAccumulatedPerItemTest extends TestCase
 {
