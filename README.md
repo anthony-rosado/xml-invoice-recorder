@@ -10,7 +10,14 @@ The following options are available:
 - Upload invoice XML file
 - Invoice summary notification
 - Invoice list with pagination
+- Invoice full detail
 - Delete invoices
+- Get total accumulated amount of items per currency
+- Get total accumulated amount of invoices per currency
+
+A Postman collection is available to test the API:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7130305-e2e89f74-ad20-4863-afa8-b6417fee1e63?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D7130305-e2e89f74-ad20-4863-afa8-b6417fee1e63%26entityType%3Dcollection%26workspaceId%3D84668433-de41-4537-a343-be9c7c16fddc)
 
 ## Installation
 
